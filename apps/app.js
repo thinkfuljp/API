@@ -2,18 +2,12 @@ $(function() {
 
   $.getJSON('http://www.omdbapi.com/?s=Star%20Wars&r=json', function(data) {
     myData = data.Search;
+    showResults(data.Search);
     $.each(myData, function(index, value) {
       console.log(value.Title);
     });
   });
 
-  $(function() {
-    $.getJSON('http://www.omdbapi.com/?s=Star%20Wars&r=json', function(data) {
-      showResults(data.Search);
-    });
-  });
-  
-  $(function(){
   	$('#search-term').submit(function(event) {
   		event.preventDefault();
   		var searchTerm = $('#query').val();
@@ -21,7 +15,6 @@ $(function() {
   			showResults(data.Search);	
   		});
   	});
-  })
 
   function showResults(results) {
   	var html = "";
