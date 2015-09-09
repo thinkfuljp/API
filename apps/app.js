@@ -8,13 +8,13 @@ $(function() {
     });
   });
 
-  	$('#search-term').submit(function(event) {
-  		event.preventDefault();
-  		var searchTerm = $('#query').val();
-  		$.getJSON('http://www.omdbapi.com/?s=' + searchTerm + '&r=json', function(data) {
-  			getRequest(searchTerm);	
-  		});
-  	});
+    $('#search-term').submit(function(event) {
+      event.preventDefault();
+      var searchTerm = $('#query').val();
+      $.getJSON('http://www.omdbapi.com/?s=' + searchTerm + '&r=json', function(data) {
+        getRequest(searchTerm); 
+      });
+    });
 
   function getRequest(searchTerm){
     var params = {
@@ -29,9 +29,9 @@ $(function() {
   }
 
     function showResults(results) {
-  	 var html = "";
+     var html = "";
       $.each(results, function(index, value) {
-    	 html += '<p>' + value.Title + '</p>';
+       html += '<p>' + value.Title + '</p>';
         console.log(value.Title);
     }); 
 
