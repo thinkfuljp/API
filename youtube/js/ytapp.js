@@ -20,7 +20,7 @@ $(function() {
             url = 'https://www.googleapis.com/youtube/v3/searchs';
 
             $.getJSON(requestURL, params, function(data) {
-
+                value = data.val;
                 myData = data.Search;
                 showResults(data.Search);
                 $.each(myData, function(index, value) {
@@ -40,7 +40,6 @@ $(function() {
                 var html = "";
                 $.each(results, function(index, value) {
                     html += '<p>' + value.Title + '</p>';
-                    console.log(value.Title);
 
                 });
                 $('#search-results').html(html);
