@@ -1,41 +1,51 @@
+var requestURL = 'https://www.googleapis.com/youtube/v3/search';
+
 $(function() {
+    console.log('ready');
 
-	$.getJSON('https://www.googleapis.com/youtube/v3/searchs', function(data) {
-		myData = data.Search;
-		showResults(data.Search);
-		$.each(myData, function(index,value) {
-		console.log(value.Title);
-		});
-	});
+    $('#search-term').submit(function(event) {
+        event.preventDefault();
+        var searchTerm = $('#query').val();
 
-	$('#search-term').submit(function(event){
-		event.preventDefault();
-		var searchTerm = $('#query').val();
-		console.log($(this).find('input').val());
 
-		$.getJSON('https://www.googleapis.com/youtube/v3/search', {
-		part:'snippet', 
-		key: 'AIzaSyD27ABFHFCuTG5zoQd_9D0Yx3KmUMY_TWI',
-		q: searchTerm='',
-		}, 
+        function getRequest(searchTerm) {
+            $.getJSON('https://www.googleapis.com/youtube/v3/search' + searchTerm + '&r=json', function(data) {
+                getRequest(searchTerm);
+                console.log($(this).find('input').val());
+            });
+            var params = {
+                s: searchTerm,
+                r: 'json'
+            };
+            url = 'https://www.googleapis.com/youtube/v3/searchs';
 
-		// function(data) {
-		// 	myData = data.snippet;
-		// 	$.each(myData, function(index, value) {
-		// 		console.log(value.snippet);
-		// 	});
+            $.getJSON(requestURL, params, function(data) {
 
-		function showResults(results) {
-			var html = "";
-			$.each(results, function(index, value) {
-       		html += '<p>' + value.Title + '</p>';
-       		console.log(value.Title);
+                myData = data.Search;
+                showResults(data.Search);
+                $.each(myData, function(index, value) {
+                    console.log(value.Title);
+                });
+            });
+        };
 
-			
-		// }
-			});
+        $.getJSON('https://www.googleapis.com/youtube/v3/search', {
+                part: 'snippet',
+                key: 'AIzaSyD27ABFHFCuTG5zoQd_9D0Yx3KmUMY_TWI',
+                q: searchTerm,
 
-		});
+            },
 
-	});
+            function showResults(results) {
+                var html = "";
+                $.each(results, function(index, value) {
+                    html += '<p>' + value.Title + '</p>';
+                    console.log(value.Title);
+
+                });
+                $('#search-results').html(html);
+
+            });
+
+    });
 });
