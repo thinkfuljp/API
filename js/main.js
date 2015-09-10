@@ -32,7 +32,7 @@ $(function() {
         $.getJSON('https://www.googleapis.com/youtube/v3/search', {
                 part: 'snippet',
                 key: 'AIzaSyD27ABFHFCuTG5zoQd_9D0Yx3KmUMY_TWI',
-                q: searchTerm,
+                q: "",
 
             },
 
